@@ -14,12 +14,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.324.0",
     "bcrypt": "^3.0.1",
+    "handlebars": "^4.0.12",
     "jsonwebtoken": "^8.3.0",
     "nodemailer": "^4.6.8",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "slack-winston": "0.0.9",
+    "stripe": "^6.12.1",
     "winston": "^3.1.0"
   },
   "devDependencies": {
