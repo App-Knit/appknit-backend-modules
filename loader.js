@@ -11,4 +11,5 @@
 // require('@babel/polyfill');
 require('@babel/register');
 require('@babel/polyfill');
-require('./index.js');
+
+require('./index');
