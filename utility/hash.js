@@ -22,7 +22,7 @@ export default {
 	 */
 	generate: ({ text, iterations = 10 }) => new Promise((resolve, reject) => {
 		bcrypt.hash(text, iterations, (err, hash) => {
-			return err ? reject(err) : resolve(hash);
+			return err ? reject(err) : resolve(hash.toString());
 		});
 	}),
 	/**
