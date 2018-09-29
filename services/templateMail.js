@@ -49,8 +49,13 @@ const sendMail = ({ to, subject = 'Mail from UrbankKiddie app', html }) => new P
  * @param {String} name of the recipient (for salutation)
  * @param {Number} verificationCode to send the generated verification token
  */
-const NewAccountMail = ({ to, name, verificationCode }) => new Promise((resolve, reject) => {
-	const html = fs.readFileSync(path.resolve(__dirname, 'templates', 'new_account_template.html'), { encoding: 'utf-8' });
+const NewAccountMail = ({
+	to,
+	name,
+	verificationCode,
+	templatePath = path.resolve(__dirname, 'templates', 'new_account_template.html'),
+}) => new Promise((resolve, reject) => {
+	const html = fs.readFileSync(templatePath, { encoding: 'utf-8' });
 	const template = handlebars.compile(html);
 	const props = { user_name: name, verification_code: verificationCode };
 	const compiled = template(props);
@@ -66,14 +71,19 @@ const NewAccountMail = ({ to, name, verificationCode }) => new Promise((resolve,
  * @param {String} name of the recipient (for salutation)
  * @param {Number} code to send for verification
  */
-const ChangePasswordToken = ({ to, name, code }) => new Promise((resolve, reject) => {
+const ChangePasswordToken = ({
+	to,
+	name,
+	code,
+	templatePath = path.resolve(__dirname, 'templates', 'new_account_template.html'),
+}) => new Promise((resolve, reject) => {
 	if (to && name && code) {
-		const html = fs.readFileSync(path.resolve(__dirname, 'templates', 'pass_change_template.html'), { encoding: 'utf-8' });
+		const html = fs.readFileSync(templatePath, { encoding: 'utf-8' });
 		const template = handlebars.compile(html);
 		const props = { user_name: name, verification_code: code };
 		const compiled = template(props);
 
-		sendMail({ to, subject: 'urbankiddie Password Reset Request', html: compiled })
+		sendMail({ to, subject: 'Password Reset Request', html: compiled })
 			.then(success => resolve(success))
 			.catch(err => reject(err));
 	} else {
@@ -86,9 +96,14 @@ const ChangePasswordToken = ({ to, name, code }) => new Promise((resolve, reject
  * @param {String} name of the recipient (for salutation)
  * @param {Number} code the new generated code
 */
-const VerificationToken = ({ to, name, code }) => new Promise((resolve, reject) => {
+const VerificationToken = ({
+	to,
+	name,
+	code,
+	templatePath = path.resolve(__dirname, 'templates', 'new_account_template.html'),
+}) => new Promise((resolve, reject) => {
 	if (to && name && code) {
-		const html = fs.readFileSync(path.resolve(__dirname, 'templates', 'verification_code_template.html'), { encoding: 'utf-8' });
+		const html = fs.readFileSync(templatePath, { encoding: 'utf-8' });
 		const template = handlebars.compile(html);
 		// replace code with the URL
 		const verificationCodeUrl = `${HOST}users/mailVerification/${to}/${code}`;
