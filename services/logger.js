@@ -9,6 +9,13 @@ import { createLogger, format, transports } from 'winston';
 import { Slack } from 'slack-winston';
 import { EmailServices } from '.';
 
+const {
+	SLACK_TOKEN,
+	SLACK_WEBOOK_URL,
+	SLACK_LOG_CHANNEL,
+	DEVELOPER_EMAIL,
+} = process.env;
+
 // winston.add(Slack, options);
 
 const requestsLogger = createLogger({
@@ -56,9 +63,9 @@ const SlackRequestInterceptor = (req, res, next) => {
 		format: format.json(),
 		transports: new Slack({
 			domain: '',
-			token: 'xoxp-406560551137-406399972208-407767326723-6b9e11a7c98636645f13c48eef65c382',
-			webhook_url: 'https://hooks.slack.com/services/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',
-			channel: 'request-log',
+			token: SLACK_TOKEN,
+			webhook_url: SLACK_WEBOOK_URL,
+			channel: SLACK_LOG_CHANNEL,
 			level: 'info',
 		}),
 	}).log({ level: 'info', message: data });
@@ -88,15 +95,14 @@ const SlackResponseInterceptor = (req, res, next) => {
 		const data = new Object(body);
 		data.format = 'response';
 		data.timestamp = new Date();
-		// winston.log({ level: 'info', message: data });
 		createLogger({
 			level: 'info',
 			format: format.json(),
 			transports: new Slack({
 				domain: '',
-				token: 'xoxp-406560551137-406399972208-407767326723-6b9e11a7c98636645f13c48eef65c382',
-				webhook_url: 'https://hooks.slack.com/services/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',
-				channel: 'response-log',
+				token: SLACK_TOKEN,
+				webhook_url: SLACK_WEBOOK_URL,
+				channel: SLACK_LOG_CHANNEL,
 				level: 'info',
 			}),
 		}).log({ level: 'info', message: data });
@@ -111,11 +117,11 @@ const SlackResponseInterceptor = (req, res, next) => {
  */
 const ActivateExceptionLogs = () => {
 	process.on('uncaughtException', async (err) => {
-		await EmailServices({ to: 'sharma02gaurav@gmail.com', text: err.stack, subject: 'Uncaught Exception in urbankiddie.' });
+		await EmailServices({ to: DEVELOPER_EMAIL, text: err.stack, subject: 'Uncaught Exception in urbankiddie.' });
 	});
 
 	process.on('unhandledRejection', async (err) => {
-		await EmailServices({ to: 'sharma02gaurav@gmail.com', text: err.stack, subject: 'Unhandled promise rejection in urbankiddie.' });
+		await EmailServices({ to: DEVELOPER_EMAIL, text: err.stack, subject: 'Unhandled promise rejection in urbankiddie.' });
 	});
 };
 
