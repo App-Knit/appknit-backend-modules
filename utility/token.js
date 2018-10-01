@@ -8,7 +8,7 @@
  */
 
 import jwt from 'jsonwebtoken';
-import { TimeUtility } from '.';
+import { TimeConversionUtility } from '.';
 
 const secretString = process.env.SECRET_STRING;
 /**
@@ -16,7 +16,7 @@ const secretString = process.env.SECRET_STRING;
   * by default, token will expire after an hour.
   * @param {*} payload the data to generate token from
   */
-const generateToken = payload => jwt.sign({ data: payload, exp: Date.now() + TimeUtility.hoursToMillis(1) }, secretString);
+const generateToken = payload => jwt.sign({ data: payload, exp: Date.now() + TimeConversionUtility.hoursToMillis(1) }, secretString);
 /**
   * this will decode the input token to the corrsopoonding payload
   * @param {*} token to decode. To be referred from generateToken method
