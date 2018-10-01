@@ -1,47 +1,49 @@
 {
-  "name": "appknit-backend-bundle",
-  "version": "1.0.31",
-  "description": "",
-  "main": "loader.js",
-  "scripts": {
-    "start": "node loader.js"
-  },
-  "keywords": [
-    "appknit",
-    "modules",
-    "plugins"
-  ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "aws-sdk": "^2.325.0",
-    "bcrypt": "^3.0.1",
-    "handlebars": "^4.0.12",
-    "jsonwebtoken": "^8.3.0",
-    "nodemailer": "^4.6.8",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "slack-winston": "0.0.9",
-    "stripe": "^6.12.1",
-    "winston": "^3.1.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-decorators": "^7.1.2",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/register": "^7.0.0",
-    "babel-eslint": "^10.0.1",
-    "babel-preset-env": "^1.7.0",
-    "eslint": "^5.6.1",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.1",
-    "gulp-babel": "^7.0.1",
-    "nodemon": "^1.18.4"
-  }
+	"name": "appknit-backend-bundle",
+	"version": "1.0.31",
+	"description": "",
+	"main": "loader.js",
+	"scripts": {
+		"start": "node loader.js",
+		"babel-build": "./node_modules/.bin/babel . -d build"
+	},
+	"keywords": [
+		"appknit",
+		"modules",
+		"plugins"
+	],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@babel/polyfill": "^7.0.0",
+		"@babel/register": "^7.0.0",
+		"aws-sdk": "^2.325.0",
+		"bcrypt": "^3.0.1",
+		"handlebars": "^4.0.12",
+		"jsonwebtoken": "^8.3.0",
+		"nodemailer": "^4.6.8",
+		"passport": "^0.4.0",
+		"passport-local": "^1.0.0",
+		"slack-winston": "0.0.9",
+		"stripe": "^6.12.1",
+		"winston": "^3.1.0"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.1.2",
+		"@babel/core": "^7.1.2",
+		"@babel/plugin-proposal-decorators": "^7.1.2",
+		"@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+		"@babel/preset-env": "^7.1.0",
+		"babel-eslint": "^10.0.1",
+		"babel-loader": "^8.0.4",
+		"babel-preset-env": "^1.7.0",
+		"eslint": "^5.6.1",
+		"eslint-config-airbnb": "^17.1.0",
+		"eslint-config-airbnb-base": "^13.1.0",
+		"eslint-plugin-import": "^2.14.0",
+		"eslint-plugin-jsx-a11y": "^6.1.1",
+		"eslint-plugin-react": "^7.11.1",
+		"gulp-babel": "^7.0.1",
+		"nodemon": "^1.18.4"
+	}
 }
