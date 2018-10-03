@@ -47,5 +47,5 @@ export default ({
 	} else {
 		client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 	}
-	sendMessage({ messageTo, messageFrom, message });
+	return sendMessage({ messageTo, messageFrom, message });
 };
