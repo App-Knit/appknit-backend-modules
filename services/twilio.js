@@ -39,13 +39,17 @@ const sendMessage = ({
 
 export default ({
 	messageTo,
-	messageFrom = TWILIO_PHONE,
 	message,
-}) => {
+}) => new Promise(async (resolve, reject) => {
 	if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !TWILIO_PHONE) {
 		throw new Error('Twilio Credentials Missing');
 	} else {
 		client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 	}
-	return sendMessage({ messageTo, messageFrom, message });
-};
+	try {
+		await sendMessage({ messageTo, message });
+		return resolve({ code: 100, message: 'success' });
+	} catch (err) {
+		return reject({ code: 104, message: 'Error sending OTP message.', error: err });
+	}
+});
