@@ -9,3 +9,4 @@ export { default as LogServices } from './logger';
 export { default as S3Services } from './s3';
 export { default as StripeServices } from './stripe';
 export { default as TemplateMailServices } from './templateMail';
+export { default as MessagingService } from './twilio';

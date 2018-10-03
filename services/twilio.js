@@ -12,6 +12,11 @@ const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
  * @param {*} messageTo the recepient
  * @param {*} messageFrom the sender (Usually default)
  * @param {*} message the message body
+ *
+ * It requires the following environment variables
+ * @requires TWILIO_ACCOUNT_SID in enviornment
+ * @requires TWILIO_AUTH_TOKEN in environment
+ * @requires TWILIO_PHONE in environment
  */
 const sendMessage = ({
 	messageTo,

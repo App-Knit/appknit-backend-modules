@@ -48,6 +48,7 @@ const sendMail = ({ to, subject = 'Mail from UrbankKiddie app', html }) => new P
  * @param {String} to, email of the user to send email
  * @param {String} name of the recipient (for salutation)
  * @param {Number} verificationCode to send the generated verification token
+ * @param {String} templatePath path to the template file
  */
 const NewAccountMail = ({
 	to,
@@ -70,6 +71,7 @@ const NewAccountMail = ({
  * @param {String} to, email of the user to send email
  * @param {String} name of the recipient (for salutation)
  * @param {Number} code to send for verification
+ * @param {String} templatePath path to the template file
  */
 const ChangePasswordToken = ({
 	to,
@@ -95,6 +97,7 @@ const ChangePasswordToken = ({
  * @param {String} to, email of the user to send email
  * @param {String} name of the recipient (for salutation)
  * @param {Number} code the new generated code
+ * @param {String} templatePath path to the template file
 */
 const VerificationToken = ({
 	to,
