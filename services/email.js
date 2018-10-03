@@ -6,14 +6,13 @@
 import nodemailer from 'nodemailer';
 import { ResponseUtility } from '../utility';
 
-const user = process.env.BUSINESS_EMAIL;
-const password = process.env.BUSINESS_EMAIL_PASSWORD;
+const { BUSINESS_EMAIL, BUSINESS_EMAIL_PASSWORD } = process.env;
 
 const transporter = nodemailer.createTransport({
 	service: 'Gmail',
 	auth: {
-		user,
-		pass: password,
+		user: BUSINESS_EMAIL,
+		pass: BUSINESS_EMAIL_PASSWORD,
 	},
 });
 
@@ -25,7 +24,7 @@ const transporter = nodemailer.createTransport({
  */
 export default ({ to, text, subject = 'Mail from tutable app' }) => new Promise((resolve, reject) => {
 	transporter.sendMail({
-		from: user,
+		from: BUSINESS_EMAIL,
 		to,
 		text,
 		subject,

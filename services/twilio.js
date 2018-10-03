@@ -5,8 +5,9 @@
  */
 import twilio from 'twilio';
 
+let client;
 const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE } = process.env;
-const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+
 /**
  * send a message to a number via client
  * @param {*} messageTo the recepient
@@ -23,6 +24,7 @@ const sendMessage = ({
 	messageFrom = TWILIO_PHONE,
 	message,
 }) => new Promise((resolve, reject) => {
+
 	client.messages.create({
 		to: messageTo,
 		from: messageFrom,
@@ -35,6 +37,15 @@ const sendMessage = ({
 	});
 });
 
-export default {
-	sendMessage,
+export default ({
+	messageTo,
+	messageFrom = TWILIO_PHONE,
+	message,
+}) => {
+	if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !TWILIO_PHONE) {
+		throw new Error('Twilio Credentials Missing');
+	} else {
+		client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+	}
+	sendMessage({ messageTo, messageFrom, message });
 };

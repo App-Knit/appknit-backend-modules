@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "node loader.js",
 		"babel-build": "./node_modules/.bin/babel . -d build",
-		"process-build": "rollup --config rollup.config.js --file lib/bundle.js"
+		"process-build": "rollup --config rollup.config.js --file lib/bundle.js",
+		"test": "mocha -t 20000 --compilers js:@babel/register tests"
 	},
 	"keywords": [
 		"appknit",
@@ -20,8 +21,10 @@
 		"@babel/register": "^7.0.0",
 		"aws-sdk": "^2.325.0",
 		"bcrypt": "^3.0.1",
+		"chai": "^4.2.0",
 		"handlebars": "^4.0.12",
 		"jsonwebtoken": "^8.3.0",
+		"mocha": "^5.2.0",
 		"nodemailer": "^4.6.8",
 		"passport": "^0.4.0",
 		"passport-local": "^1.0.0",

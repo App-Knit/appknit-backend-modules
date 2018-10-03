@@ -10,8 +10,6 @@ import nodemailer from 'nodemailer';
 import { ResponseUtility } from '../utility';
 
 const { HOST, BUSINESS_EMAIL, BUSINESS_EMAIL_PASSWORD } = process.env;
-// const user = process.env.BUSINESS_EMAIL;
-// const password = process.env.BUSINESS_EMAIL_PASSWORD;
 
 const transporter = nodemailer.createTransport({
 	service: 'Gmail',
@@ -31,7 +29,7 @@ const sendMail = ({ to, subject = 'Mail from UrbankKiddie app', html }) => new P
 	// read html file here
 
 	transporter.sendMail({
-		from: user,
+		from: BUSINESS_EMAIL,
 		to,
 		html,
 		subject,

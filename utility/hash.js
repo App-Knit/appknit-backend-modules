@@ -10,7 +10,7 @@
  * 		Since, hashes are not decodeable, they are only comparable. This functionality will
  * 		accepts an incoming hash and a plain text phrase and perform matching based on it.
  *
- * @author garurav sharma
+ * @author gaurav sharma
  * @since 28th September 2018
  */
 import bcrypt from 'bcrypt';
