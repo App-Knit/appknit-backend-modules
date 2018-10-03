@@ -27,6 +27,7 @@
 		"passport-local": "^1.0.0",
 		"slack-winston": "0.0.9",
 		"stripe": "^6.12.1",
+		"twilio": "^3.21.0",
 		"winston": "^3.1.0"
 	},
 	"devDependencies": {
