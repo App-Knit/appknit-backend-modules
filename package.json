@@ -28,6 +28,7 @@
 		"nodemailer": "^4.6.8",
 		"passport": "^0.4.0",
 		"passport-local": "^1.0.0",
+		"request": "^2.88.0",
 		"slack-winston": "0.0.9",
 		"stripe": "^6.12.1",
 		"twilio": "^3.21.0",

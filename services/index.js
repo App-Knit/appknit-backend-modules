@@ -10,3 +10,4 @@ export { default as S3Services } from './s3';
 export { default as StripeServices } from './stripe';
 export { default as TemplateMailServices } from './templateMail';
 export { default as MessagingService } from './twilio';
+export { default as VerifyFacebookTokenService } from './verifyFacebookToken';
