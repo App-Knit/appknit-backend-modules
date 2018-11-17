@@ -2,6 +2,7 @@ services
 tests
 utility
 .babelrc
+.vscode
 .eslintrc.json
 .gitignore
 .babel.config.js
