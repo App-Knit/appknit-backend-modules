@@ -11,3 +11,5 @@ export { default as StripeServices } from './stripe';
 export { default as TemplateMailServices } from './templateMail';
 export { default as MessagingService } from './twilio';
 export { default as VerifyFacebookTokenService } from './verifyFacebookToken';
+export { default as MergingMultipartService } from './mergingMultipart';
+export { default as PropsInjectingService } from './propsInjection';
