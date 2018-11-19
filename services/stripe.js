@@ -247,7 +247,7 @@ const HandlePayout = ({
 			currency: 'aud',
 			transfer_group: 'TEST_TRANSFERS',
 		})
-			.then(success => resolve(ResponseUtility.SUCCESS_DATA(success)))
+			.then(success => resolve(ResponseUtility.SUCCESS({ data: success })))
 			.catch(err => reject(ResponseUtility.GENERIC_ERR({ message: '', error: err })));
 	}
 });

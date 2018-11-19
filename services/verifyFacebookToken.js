@@ -16,7 +16,7 @@ export default ({ accessToken }) => new Promise((resolve, reject) => {
 		}
 		if (response.statusCode === 200) {
 			const queryResponse = JSON.parse(response.body);
-			return resolve(ResponseUtility.SUCCESS_DATA({ ...queryResponse }));
+			return resolve(ResponseUtility.SUCCESS({ data: { ...queryResponse } }));
 		}
 		return reject(ResponseUtility.INVALID_ACCESS_TOKEN);
 	});
