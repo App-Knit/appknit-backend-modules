@@ -41,7 +41,7 @@ export default {
 				}
 			});
 		} else {
-			reject(ResponseUtility.MISSING_REQUIRED_PROPS());
+			reject(ResponseUtility.MISSING_PROPS());
 		}
 	}),
 
@@ -65,7 +65,7 @@ export default {
 				}
 			});
 		} else {
-			reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+			reject(ResponseUtility.MISSING_PROPS())
 		}
 	}),
 
@@ -131,7 +131,7 @@ export default {
 				}
 			});
 		} else {
-			reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+			reject(ResponseUtility.MISSING_PROPS());
 		}
 	}),
 
