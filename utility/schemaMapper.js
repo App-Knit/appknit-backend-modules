@@ -10,7 +10,7 @@ import { ResponseUtility } from '.';
 export default jsonObject => new Promise((resolve, reject) => {
 	const resultantObject = {};
 	Object.keys(jsonObject).map((key, index) => {
-		if (jsonObject[key] && key !== 'id') {
+		if (jsonObject[key] !== undefined && key !== 'id') {
 			resultantObject[key] = jsonObject[key];
 		}
 		if (index === Object.keys(jsonObject).length - 1) {
