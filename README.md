@@ -22,6 +22,8 @@ export default ({ }) => new Promise((resolve, reject) => {
 
 ```
 
+The full documentation of the module could be found in [appknit-backend-bundle WIKI](https://github.com/App-Knit/appknit-backend-modules/wiki)
+
 # Bundle Components
 The bundle components are divided into services and utility.
 
