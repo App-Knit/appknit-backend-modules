@@ -37,7 +37,7 @@ const CreateUser = ({
 			resolve(object);
 		}).catch(err => reject(err));
 	} else {
-		reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+		reject(ResponseUtility.MISSING_PROPS());
 	}
 });
 
@@ -54,7 +54,7 @@ const RemoveCard = ({ customerId, cardId }) => new Promise((resolve, reject) => 
 				resolve(success);
 			}).catch(err => reject(err));
 	} else {
-		reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+		reject(ResponseUtility.MISSING_PROPS());
 	}
 });
 /**
@@ -69,7 +69,7 @@ const RemoveExternalAccount = ({ accountId, bankId }) => new Promise((resolve, r
 			.then(success => resolve(success))
 			.catch(err => reject(err));
 	} else {
-		reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+		reject(ResponseUtility.MISSING_PROPS());
 	}
 });
 
@@ -85,7 +85,7 @@ const UpdateExternalAccount = ({ accountId, externalAccount }) => new Promise((r
 			.then(success => resolve(success))
 			.catch(err => reject(err));
 	} else {
-		reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+		reject(ResponseUtility.MISSING_PROPS());
 	}
 });
 
@@ -185,7 +185,7 @@ const CreateBankUser = ({
 			}
 		}
 	} else {
-		reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+		reject(ResponseUtility.MISSING_PROPS());
 	}
 });
 
@@ -214,7 +214,7 @@ const CreatePayment = ({
 			.then(success => resolve(success))
 			.catch(err => reject(err));
 	} else {
-		reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+		reject(ResponseUtility.MISSING_PROPS());
 	}
 });
 
@@ -280,7 +280,7 @@ const AddExternalAccount = ({ account, businessName, token }) => new Promise((re
 			resolve(success);
 		}).catch(err => reject(err));
 	} else {
-		reject(ResponseUtility.MISSING_REQUIRED_PROPS);
+		reject(ResponseUtility.MISSING_PROPS());
 	}
 });
 
