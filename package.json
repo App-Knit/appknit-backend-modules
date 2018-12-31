@@ -25,6 +25,8 @@
 		"handlebars": "^4.0.12",
 		"jsonwebtoken": "^8.3.0",
 		"mocha": "^5.2.0",
+		"moment-timezone": "^0.5.23",
+		"mongoose": "^5.4.1",
 		"nodemailer": "^4.6.8",
 		"passport": "^0.4.0",
 		"passport-local": "^1.0.0",
