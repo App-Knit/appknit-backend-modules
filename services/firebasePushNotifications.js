@@ -51,7 +51,10 @@ export default ({
 		data,
 		notification: device.toLowerCase() === 'ios' ? {
 			sound: 'default',
-			body: data,
+			body: data.subtitle,
+			data,
+			title: data.title,
+			priority: 'High',
 		} : undefined,
 	};
 	// send the push notification
