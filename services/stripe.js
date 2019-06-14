@@ -9,6 +9,18 @@ import { ResponseUtility } from '../utility';
 
 const { STRIPE_SECRET_KEY } = process.env;
 const stripe = new Stripe(STRIPE_SECRET_KEY);
+const fees = {
+	USD: { Percent: 2.9, Fixed: 0.30 },
+	GBP: { Percent: 2.4, Fixed: 0.20 },
+	EUR: { Percent: 2.4, Fixed: 0.24 },
+	CAD: { Percent: 2.9, Fixed: 0.30 },
+	AUD: { Percent: 2.9, Fixed: 0.30 },
+	NOK: { Percent: 2.9, Fixed: 2 },
+	DKK: { Percent: 2.9, Fixed: 1.8 },
+	SEK: { Percent: 2.9, Fixed: 1.8 },
+	JPY: { Percent: 3.6, Fixed: 0 },
+	MXN: { Percent: 3.6, Fixed: 3 },
+};
 /**
  * create a unique stripe user. Will check from database
  * regarding the existence and will be called if key has not
@@ -285,7 +297,7 @@ const AddExternalAccount = ({ account, businessName, token }) => new Promise((re
 });
 
 /**
- * process the refeund based on the incurred charge
+ * @desc process the refeund based on the incurred charge
  * @param {String} chargeId the id of the charge to process refund.
  * @param {Number} amount if defined, the amount of money will be refunded, By deducting some charges
  */
@@ -317,6 +329,216 @@ const ProcessRefund = ({ chargeId, amount }) => new Promise(async (resolve, reje
 	}
 });
 
+/**
+ * @desc create a connect account for user for payouts.
+ * @param {String} StripeId the stripe id of the user.
+ * @param {String} token the stripe token of the bank account.
+ * @param {String} email of the user.
+ */
+
+const CreateBankUserV2 = ({
+	email,
+	token,
+	StripeId,
+	verificationDocumentDataBack,
+	verificationDocumentDataFront,
+	city,
+	country,
+	line1,
+	line2,
+	postal_code,
+	type,
+	business_type,
+	state,
+	first_name,
+	last_name,
+	day,
+	month,
+	year,
+	gender,
+	phone,
+	ssn_last_4,
+	ip,
+	url,
+	mcc,
+}) => new Promise(async (resolve, reject) => {
+	try {
+		if ((email || StripeId) && token) {
+			let accountData;
+			if (email) {
+				const account = await stripe.account.create({
+					type,
+					country,
+					email,
+					business_type,
+					requested_capabilities: ['card_payments'],
+				});
+				const uploadFront = await stripe.files.create(
+					{
+						purpose: 'identity_document',
+						file: {
+							data: verificationDocumentDataFront,
+							name: 'identity_document_front',
+							type: 'application/octect-stream',
+						},
+					},
+					{ stripe_account: account.id },
+				);
+				const uploadBack = await stripe.files.create(
+					{
+						purpose: 'identity_document',
+						file: {
+							data: verificationDocumentDataBack,
+							name: 'identity_document_back',
+							type: 'application/octect-stream',
+						},
+					},
+					{ stripe_account: account.id },
+				);
+				accountData = await stripe.accounts.update(account.id,
+					{
+						external_account: token,
+						tos_acceptance: {
+							date: Math.floor(Date.now() / 1000),
+							ip,
+						},
+						business_profile: {
+							url,
+							mcc,
+						},
+						individual: {
+							address: {
+								city,
+								country,
+								line1,
+								line2,
+								postal_code,
+								state,
+							},
+							first_name,
+							last_name,
+							dob: {
+								day,
+								month,
+								year,
+							},
+							gender,
+							phone,
+							email,
+							ssn_last_4,
+							verification: {
+								document: {
+									back: uploadFront.id,
+									front: uploadBack.id,
+								},
+							},
+						},
+					});
+			} else {
+				accountData = await stripe.accounts.update(StripeId,
+					{
+						external_account: token,
+						individual: {
+							address: {
+								city,
+								country,
+								line1,
+								line2,
+								postal_code,
+								state,
+							},
+							dob: {
+								day,
+								month,
+								year,
+							},
+							gender,
+							phone,
+							email,
+						},
+					});
+			}
+			resolve(accountData);
+		} else {
+			reject(ResponseUtility.MISSING_PROPS());
+		}
+	} catch (err) {
+		reject(err);
+	}
+});
+
+/**
+ * @desc add a new source and attach it to user for payments.
+ * @param {String} customer the stripe id of the customer.
+ * @param {String} source the stripe token of the source.
+ */
+
+const CreateSource = ({ customer, source }) => new Promise(async (resolve, reject) => {
+	if (!customer && !source) {
+		return reject(ResponseUtility.MISSING_REQUIRES_PROPS);
+	}
+	try {
+		const response = await stripe.customers.createSource(customer, { source });
+		resolve(response);
+	} catch (err) {
+		reject(err);
+	}
+});
+
+/**
+ * @desc delete a source from customer's account.
+ * @param {String} customer the stripe id of the customer.
+ * @param {String} source the stripe token of the source.
+ */
+
+const DeleteSource = ({ customer, source }) => new Promise(async (resolve, reject) => {
+	if (!customer && !source) {
+		return reject(ResponseUtility.MISSING_REQUIRES_PROPS);
+	}
+	try {
+		const response = await stripe.customers.deleteSource(customer, source);
+		resolve(response);
+	} catch (err) {
+		reject(err);
+	}
+});
+
+/**
+ * @desc update defaut source of payment for user.
+ * @param {String} customer the stripe id of the customer.
+ * @param {String} source the stripe token of the source.
+ */
+
+const UpdateDefaultSource = ({ customer, defaultSource }) => new Promise(async (resolve, reject) => {
+	if (!customer && !defaultSource) {
+		return reject(ResponseUtility.MISSING_REQUIRES_PROPS);
+	}
+	try {
+		const response = await stripe.customers.update(customer, { default_source: defaultSource });
+		resolve(response);
+	} catch (err) {
+		reject(err);
+	}
+});
+
+/**
+ * @desc calculate stripe service charges for a payment.
+ * @param {Number} amount the amount of the payment.
+ * @param {String} source the currency used for payment.
+ */
+
+const calculateStripeServiceCharges = ({ amount, currency }) => {
+	const charges = fees[currency];
+	const calculatedAmount = parseFloat(amount);
+	const fee = ((calculatedAmount * charges.Percent) / 100) + charges.Fixed;
+	const net = parseFloat(calculatedAmount) + parseFloat(fee);
+	return {
+		amount,
+		fee: parseFloat(parseFloat(fee).toFixed(2)),
+		net: parseFloat(parseFloat(net).toFixed(2)),
+	};
+};
+
 export default {
 	stripe,
 	CreateUser,
@@ -329,4 +551,9 @@ export default {
 	RemoveCard,
 	RemoveExternalAccount,
 	UpdateExternalAccount,
+	CreateSource,
+	DeleteSource,
+	CreateBankUserV2,
+	UpdateDefaultSource,
+	calculateStripeServiceCharges,
 };
