@@ -331,9 +331,34 @@ const ProcessRefund = ({ chargeId, amount }) => new Promise(async (resolve, reje
 
 /**
  * @desc create a connect account for user for payouts.
- * @param {String} StripeId the stripe id of the user.
- * @param {String} token the stripe token of the bank account.
  * @param {String} email of the user.
+ * @param {String} token the stripe token of the bank account.
+ * @param {String} StripeId the stripe connect id of the user.
+ * @param {Buffer} verificationDocumentDataBack the image buffer of
+ * backside of the user's verification id proof.
+ * @param {Buffer} verificationDocumentDataFront the image buffer of
+ * frontside of the user's verification id proof.
+ * @param {String} city the city of the user.
+ * @param {String} country the country of the user.
+ * @param {String} line1 the address line one of the user.
+ * @param {String} line2 the address line two of the user.
+ * @param {String} postal_code the postal code of the user.
+ * @param {String} type the Stripe account type. Can be "standard",
+ * "express", or "custom".
+ * @param {String} business_type the business type of stripe account.
+ * Can be "individual" or "company".
+ * @param {String} state the state of the user.
+ * @param {String} first_name the first name of the user.
+ * @param {String} last_name the last name of the user.
+ * @param {Number} day the date of the user birh.
+ * @param {Number} month the month of the user birh.
+ * @param {Number} year the year of the user birh.
+ * @param {Number} gender the gender of the user either "male" or "female".
+ * @param {Number} phone the phone number of the user.
+ * @param {Number} ssn_last_4 the last 4 digits of user's social security number.
+ * @param {Number} ip the ip address of user's device.
+ * @param {String} url the url of user's business website.
+ * @param {Number} mcc the Merchant Category Code of the user.
  */
 
 const CreateBankUserV2 = ({
