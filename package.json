@@ -12,9 +12,10 @@
   "keywords": [
     "appknit",
     "modules",
-    "plugins"
+    "plugins",
+    "backend"
   ],
-  "author": "",
+  "author": "gaurav sharma",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
