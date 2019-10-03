@@ -1,6 +1,6 @@
 {
   "name": "appknit-backend-bundle",
-  "version": "1.0.73",
+  "version": "1.0.74",
   "description": "",
   "main": "lib/bundle.js",
   "scripts": {
