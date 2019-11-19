@@ -39,5 +39,9 @@ export default (digits = 6, type = 'num') => {
 		random += characters.charAt(Math.floor(Math.random() * charactersLength));
 	}
 	(type == 'num') ? random = parseInt(random) : 0;
+	const missingLength = digits - random.toString().length;
+	if (missingLength) {
+		random *= (10 ** missingLength);
+	}
 	return random;
 };
