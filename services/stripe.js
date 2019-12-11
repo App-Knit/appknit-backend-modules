@@ -39,7 +39,7 @@ const CreateUser = ({
 	id,
 	card,
 }) => new Promise(async (resolve, reject) => {
-	if ((email || id) && card) {
+	if ((email || id)) {
 		stripe.customers.create({
 			email: email || id,
 			description: `Stripe details for ${email || id} customer`,
