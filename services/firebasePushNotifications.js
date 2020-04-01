@@ -29,6 +29,7 @@ export default ({
 	type,
 	picture,
 	payload,
+	sound = 'default',
 }) => new Promise((resolve, reject) => {
 	if (!deviceId || !title || !device) {
 		return reject(ResponseUtility.MISSING_PROPS({ message: 'deviceId, device and title is required to send the notification.' }));
@@ -50,7 +51,7 @@ export default ({
 		collapse_key: 'data',
 		data,
 		notification: device.toLowerCase() === 'ios' ? {
-			sound: 'default',
+			sound,
 			body: data.subtitle,
 			data,
 			title: data.title,
