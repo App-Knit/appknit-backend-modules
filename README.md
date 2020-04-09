@@ -47,6 +47,7 @@ The package is bundled with the following utilities:
 - `SchemaMapperUtility`: Checks which properties of a schema to consider and which mot.
 - `TimeConversionUUtility`: Time Related conversion and handling.
 - `TokenUtility`: Generate the authentication and decode it.
+- `SendInBlueEmailService` : to send html or plain email.
 
 # Author
 gaurav sharma
