@@ -11,15 +11,27 @@
  * array to name binaries.
  */
 export default (req, res, next) => {
-	const { files, body: { data, id } } = req;
-	req.body = data ? JSON.parse(data) : {};
+	const {
+		files, body: {
+			data, id, AMQPConnection, AMQPChannel,
+		},
+	} = req;
+	req.body = data ? (
+		{ ...JSON.parse(data), AMQPConnection, AMQPChannel }) : { AMQPConnection, AMQPChannel };
 	if (id) {
 		req.body.id = id;
 	}
-	if (files && Object.keys(files).length) {
-		Object.keys(files).map((fileKey) => {
-			req.body[fileKey] = files[fileKey].data;
+	const fileKeys = Object.keys(files);
+	if (files && fileKeys.length) {
+		fileKeys.map((fileKey) => {
+			if (fileKeys.length === 1 && fileKey !== 'images') {
+				req.body[fileKey] = files[fileKey].data;
+			} else if (!req.body.images) {
+				req.body.images = [files[fileKey].data];
+			} else {
+				req.body.images.push(files[fileKey].data);
+			}
 		});
 	}
-	next();
+	return next();
 };
