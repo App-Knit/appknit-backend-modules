@@ -53,6 +53,9 @@
     "eslint-plugin-react": "^7.11.1",
     "gulp-babel": "^7.0.1",
     "nodemon": "^1.18.4",
-    "rollup-plugin-node-resolve": "^3.4.0"
-  }
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
 }
