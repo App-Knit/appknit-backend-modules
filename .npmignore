@@ -10,3 +10,4 @@ index.js
 loader.js
 rollup.config.js
 docs
+.github/*
