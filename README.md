@@ -1,4 +1,4 @@
-![Node.js Package](https://github.com/App-Knit/appknit-backend-modules/workflows/Node.js%20Package/badge.svg?branch=1.0.77)
+![Node.js Package](https://github.com/App-Knit/appknit-backend-modules/workflows/Node.js%20Package/badge.svg?branch=latest)
 
 # AppKnit Backend Module Bundle
 This is the standalone bundled modules package for common service and utility functions that are used
