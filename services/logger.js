@@ -6,17 +6,11 @@
  */
 
 import { createLogger, format, transports } from 'winston';
-// import { Slack } from 'slack-winston';
 import { EmailServices } from '.';
 
 const {
-	// SLACK_TOKEN,
-	// SLACK_WEBOOK_URL,
-	// SLACK_LOG_CHANNEL,
 	DEVELOPER_EMAIL,
 } = process.env;
-
-// winston.add(Slack, options);
 
 const requestsLogger = createLogger({
 	level: 'info',
@@ -30,6 +24,14 @@ const responseLogger = createLogger({
 	format: format.json(),
 	transports: [
 		new transports.File({ filename: './logs/response-info.log', level: 'info' }),
+	],
+});
+
+const consoleLogger = createLogger({
+	level: 'info',
+	format: format.json(),
+	transports: [
+		new transports.Console({ level: 'info' })
 	],
 });
 
@@ -50,27 +52,6 @@ const RequestInterceptor = (req, res, next) => {
 	requestsLogger.log({ level: 'info', message: data });
 	next();
 };
-
-// const SlackRequestInterceptor = (req, res, next) => {
-// 	const { body, headers, path } = req;
-// 	const data = new Object(body);
-// 	data.format = 'request';
-// 	data.headers = headers;
-// 	data.timestamp = new Date();
-
-// 	createLogger({
-// 		level: 'info',
-// 		format: format.json(),
-// 		transports: new Slack({
-// 			domain: '',
-// 			token: SLACK_TOKEN,
-// 			webhook_url: SLACK_WEBOOK_URL,
-// 			channel: SLACK_LOG_CHANNEL,
-// 			level: 'info',
-// 		}),
-// 	}).log({ level: 'info', message: data });
-// 	next();
-// };
 /**
   * Intercetor for the response
   * @param {*} req
@@ -89,27 +70,28 @@ const ResponseInterceptor = (req, res, next) => {
 	next();
 };
 
-// const SlackResponseInterceptor = (req, res, next) => {
-// 	const { send } = res;
-// 	res.send = function (body) {
-// 		const data = new Object(body);
-// 		data.format = 'response';
-// 		data.timestamp = new Date();
-// 		createLogger({
-// 			level: 'info',
-// 			format: format.json(),
-// 			transports: new Slack({
-// 				domain: '',
-// 				token: SLACK_TOKEN,
-// 				webhook_url: SLACK_WEBOOK_URL,
-// 				channel: SLACK_LOG_CHANNEL,
-// 				level: 'info',
-// 			}),
-// 		}).log({ level: 'info', message: data });
-// 		send.call(this, body);
-// 	};
-// 	next();
-// };
+const RequestInterceptorConsole = (req, res, next) => {
+	const { body, headers, path } = req;
+	const data = new Object(body);
+	data.format = 'request';
+	data.path = path;
+	data.headers = headers;
+	data.timestamp = new Date();
+
+	consoleLogger.log({ level: 'info', message: data });
+	next();
+}
+
+const ResponseInterceptorConsole = (req, res, next) => {
+	const { send } = res;
+	res.send = function(body) {
+		const data = new Object(body);
+		data.format = 'response';
+		data.timestamp = new Date().toUTCString();
+		consoleLogger.log({ level: 'info', message: data });
+		send.call(this, body);
+	}
+}
 
 /**
  * activate the exeption logs
@@ -128,7 +110,7 @@ const ActivateExceptionLogs = () => {
 export default {
 	ResponseInterceptor,
 	RequestInterceptor,
-	// SlackRequestInterceptor,
-	// SlackResponseInterceptor,
+	RequestInterceptorConsole,
+	ResponseInterceptorConsole,
 	ActivateExceptionLogs,
 };
