@@ -91,6 +91,7 @@ const ResponseInterceptorConsole = (req, res, next) => {
 		consoleLogger.log({ level: 'info', message: data });
 		send.call(this, body);
 	}
+	next();
 }
 const _commonLogger = (type, message) => console[type](`${new Date().toUTCString()}: ${JSON.stringify(message)}`);
 
