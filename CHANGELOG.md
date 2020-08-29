@@ -1,3 +1,5 @@
+# Version 1.0.792 (30th August 2020)
+* fix(logger): fix bug for missing interceptor callback
 # Version 1.0.791 (30th August 2020)
 * fix(build): rollingback publish config
 
