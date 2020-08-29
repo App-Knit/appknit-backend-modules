@@ -92,6 +92,13 @@ const ResponseInterceptorConsole = (req, res, next) => {
 		send.call(this, body);
 	}
 }
+const _commonLogger = (type, message) => console[type](`${new Date().toUTCString()}: ${JSON.stringify(message)}`);
+
+const logger = {
+	info: message => _commonLogger('log', message),
+	error: message => _commonLogger('error', message),
+	warn: message => _commonLogger('warn', message),
+}
 
 /**
  * activate the exeption logs
@@ -113,4 +120,5 @@ export default {
 	RequestInterceptorConsole,
 	ResponseInterceptorConsole,
 	ActivateExceptionLogs,
+	logger,
 };
