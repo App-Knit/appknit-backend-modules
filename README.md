@@ -49,6 +49,13 @@ The package is bundled with the following utilities:
 - `SchemaMapperUtility`: Checks which properties of a schema to consider and which mot.
 - `TimeConversionUUtility`: Time Related conversion and handling.
 - `TokenUtility`: Generate the authentication and decode it.
+- `AppleVerificationService`: Verify apple token.
+- `DownloadFileService`: Get file content without download in local.
+- `AndroidSubscriptionService`: Verify the andorid subscription token.
+
 
 # Author
 gaurav sharma
+
+# Contributor
+Jagmohan Singh
