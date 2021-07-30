@@ -14,3 +14,4 @@ export { default as VerifyFacebookTokenService } from './verifyFacebookToken';
 export { default as MergingMultipartService } from './mergingMultipart';
 export { default as PropsInjectionService } from './propsInjection';
 export { default as FirebasePushNotificationService } from './firebasePushNotifications';
+export { default as AppleVerificationService } from './appleVerification';
