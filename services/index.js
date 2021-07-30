@@ -15,3 +15,4 @@ export { default as MergingMultipartService } from './mergingMultipart';
 export { default as PropsInjectionService } from './propsInjection';
 export { default as FirebasePushNotificationService } from './firebasePushNotifications';
 export { default as AppleVerificationService } from './appleVerification';
+export { default as pushNotificationsService } from './pushNotifications';
