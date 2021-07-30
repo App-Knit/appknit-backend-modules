@@ -58,4 +58,4 @@ The package is bundled with the following utilities:
 gaurav sharma
 
 # Contributor
-Jagmohan Singh
+[Jagmohan Singh](https://github.com/jaggi47)
