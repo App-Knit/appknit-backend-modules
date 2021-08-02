@@ -30,7 +30,7 @@ jobs:
       - run: npm ci
       - run: npm install --global rollup
       - run: npm run process-build
-      - run: npm publish
+      - run: npm publish --tag beta
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
